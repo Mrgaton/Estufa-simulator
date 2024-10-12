@@ -9,8 +9,7 @@ namespace Estufa_simulator
 {
     internal static class Program
     {
-        private static SHA512 hashAlgorithm = SHA512Managed.Create();
-
+        private static byte[] buffer = new byte[int.MaxValue / 16];
         [STAThread]
         private static void Main(string[] args)
         {
@@ -20,7 +19,7 @@ namespace Estufa_simulator
             {
                 Parallel.ForEach(IterateUntilFalse(() => true), new ParallelOptions { MaxDegreeOfParallelism = Environment.ProcessorCount }, async ignored =>
                 {
-                    byte[] buffer = new byte[int.MaxValue / 16];
+                    SHA512 hashAlgorithm = SHA512Managed.Create();
 
                     while (true) hashAlgorithm.ComputeHash(buffer);
                 });
